@@ -1,0 +1,29 @@
+CREATE TABLE tbl_user (
+  id VARCHAR(255) NOT NULL,
+  number CHAR(4) NOT NULL,
+  name VARCHAR(10) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+  UNIQUE INDEX number_UNIQUE (number ASC) VISIBLE
+);
+
+CREATE TABLE tbl_reservation (
+  id INT NOT NULL AUTO_INCREMENT,
+  user_id VARCHAR(255) NOT NULL,
+  room CHAR(3) NOT NULL,
+  time CHAR(6) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY(user_id) REFERENCES tbl_user(id) ON DELETE CASCADE,
+  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
+);
+
+CREATE TABLE tbl_member (
+  id INT NOT NULL AUTO_INCREMENT,
+  reservation_id INT NOT NULL,
+  user_id VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY(user_id) REFERENCES tbl_user(id) ON DELETE CASCADE,
+  FOREIGN KEY(reservation_id) REFERENCES tbl_reservation(id) ON DELETE CASCADE,
+  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
+);
